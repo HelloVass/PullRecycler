@@ -84,7 +84,7 @@ public final class PullRecycler extends FrameLayout implements IPullRecycler {
         @Override public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
 
           if (mLoadMoreEnabled
-              && mILayoutManager.findLastVisibleItemPosition()
+              && mILayoutManager.findLastCompletelyVisibleItemPosition()
               >= mILayoutManager.getItemCount() - 1) {
 
             onReachBottom();
@@ -270,6 +270,8 @@ public final class PullRecycler extends FrameLayout implements IPullRecycler {
     }
 
     mILoadMoreUIHandler = DefaultLoadMore.create(getContext());
-    mLoadMoreContainer.addView(mILoadMoreUIHandler.getConvertView());
+    mLoadMoreContainer.addView(mILoadMoreUIHandler.getConvertView(),
+        new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT));
   }
 }
